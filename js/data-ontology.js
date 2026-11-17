@@ -101,22 +101,22 @@ window.VCC_ONTOLOGY = {
             mechanismStemsAr: ['قيم', 'فعل', 'حقيق', 'ترسل', 'مرسل', 'تمرر', 'ندخل', 'استدع', 'مناد'],
             mechanismStemsEn: ['actual', 'value', 'pass', 'send', 'sent', 'call', 'invoc', 'input'],
             requiredEnglishTerms: ['argument', 'actual value', 'method call'],
-            boundaryMarkers: ['بينما', 'عكس', 'وليس', 'اما', 'تختلف', 'unlike', 'whereas', 'not', 'while', 'instead'],
+            boundaryMarkers: ['بينما', 'عكس', 'وليس', 'اما', 'يختلف', 'unlike', 'whereas', 'not', 'while'],
             twinStems: ['parameter', 'باراميتر', 'معامل', 'متغير', 'راس', 'تعريف', 'header', 'variable', 'placeholder'],
             scaffoldTemplateEn: 'An Argument is the actual value passed inside a method call, whereas a Parameter is the placeholder variable in the method header.',
             sampleDrafts: [
               {
-                label: '1. فهم طالب بالعربي فقط (33%)',
+                label: '01 — مسودة عربية (Arabic Draft)',
                 sub: 'فاهم الفكرة بس نسي المصطلحات الإنجليزية',
                 text: 'هي القيمة الحقيقية اللي نرسلها للدالة لما نناديها في الكود'
               },
               {
-                label: '2. خلط مع التوأم Parameter (فخ!)',
+                label: '02 — خلط مع التوأم (Twin-Term Confusion)',
                 sub: 'وصف المعامل بدلاً من القيمة الفعلية',
                 text: 'An argument is the variable declared in header of the function'
               },
               {
-                label: '3. إجابة الدرجة الكاملة (100%)',
+                label: '03 — إجابة الدرجة الكاملة (Full-Mark Answer)',
                 sub: 'مستوفية للشروط الثلاثة للمصحح',
                 text: 'An Argument is the actual value passed in a method call, whereas a Parameter is the variable in the method header.'
               }
@@ -220,7 +220,7 @@ window.VCC_ONTOLOGY = {
             scaffoldTemplateEn: 'Encapsulation achieves data hiding by making variables private and using public getters/setters, unlike Abstraction which hides implementation complexity.',
             sampleDrafts: [
               {
-                label: '1. فهم طالب بالعربي فقط (33%)',
+                label: '01 — مسودة عربية (Arabic Draft)',
                 sub: 'شرح الفكرة بالعربي بدون الكلمات المفتاحية',
                 text: 'هو إخفاء وحماية بيانات الكلاس ومنع تعديلها بشكل مباشر من الخارج'
               },
@@ -230,7 +230,7 @@ window.VCC_ONTOLOGY = {
                 text: 'Encapsulation hides implementation complexity using an abstract interface'
               },
               {
-                label: '3. إجابة الدرجة الكاملة (100%)',
+                label: '03 — إجابة الدرجة الكاملة (Full-Mark Answer)',
                 sub: 'مستوفية للشروط الثلاثة للمصحح',
                 text: 'Encapsulation achieves data hiding using private variables and public setters, unlike Abstraction which hides implementation complexity.'
               }
@@ -327,7 +327,7 @@ window.VCC_ONTOLOGY = {
             mechanismStemsAr: ['اعاد', 'يعيد', 'تعريف', 'ابن', 'وراث', 'نفس', 'مدخل', 'دال', 'سلوك'],
             mechanismStemsEn: ['redefin', 'replace', 'inherit', 'same', 'child', 'parent', 'method'],
             requiredEnglishTerms: ['subclass', 'same signature'],
-            boundaryMarkers: ['بينما', 'عكس', 'وليس', 'اما', 'يختلف', 'unlike', 'whereas', 'not', 'while', 'different'],
+            boundaryMarkers: ['بينما', 'عكس', 'وليس', 'اما', 'يختلف', 'unlike', 'whereas', 'not', 'while'],
             twinStems: ['overloading', 'اوفرلود', 'مختلف', 'different', 'parameter'],
             scaffoldTemplateEn: 'Method Overriding redefines an inherited method in a subclass with the same signature, whereas Method Overloading uses different parameters.',
             sampleDrafts: [
@@ -448,7 +448,7 @@ window.VCC_ONTOLOGY = {
             mechanismStemsEn: ['debt', 'owe', 'owed', 'obligat', 'loan', 'payable', 'creditor'],
             requiredEnglishTerms: ['liability', 'debt', 'owed'],
             boundaryMarkers: ['بينما', 'عكس', 'وليس', 'اما', 'unlike', 'whereas', 'not', 'while'],
-            twinStems: ['asset', 'اصول', 'اصل', 'تمتلك', 'مملوك', 'own', 'owned', 'resource'],
+            twinStems: ['asset', 'اصول', 'اصل', 'تمتلك', 'مملوك', 'own', 'owned'],
             scaffoldTemplateEn: 'A Liability is a financial debt owed to creditors, whereas an Asset is a resource owned by the business.',
             sampleDrafts: [
               {
