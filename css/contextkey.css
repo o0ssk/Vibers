@@ -1,0 +1,791 @@
+/* ==========================================================================
+   CONTEXTKEY — EDTECH DESIGN SYSTEM
+   Refined Light-Theme Academic Workbench
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --ck-navy: #172B45;
+  --ck-blue: #4263D8;
+  --ck-blue-hover: #3452C4;
+  --ck-canvas: #F7F8FA;
+  --ck-surface: #FFFFFF;
+  --ck-lavender: #EEF0FF;
+  --ck-teal: #DDF3EE;
+  --ck-teal-ink: #0F5C4D;
+  --ck-amber: #F5E8C9;
+  --ck-amber-ink: #7A5212;
+  --ck-rose-bg: #FCEEEF;
+  --ck-rose-ink: #A32237;
+  --ck-ink: #202B3C;
+  --ck-muted: #748094;
+  --ck-border: #E6EAF0;
+  --ck-border-strong: #CFD6E1;
+
+  --font-ar: 'IBM Plex Sans Arabic', system-ui, -apple-system, sans-serif;
+  --font-en: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --shadow-card: 0 1px 2px rgba(23, 43, 69, 0.04), 0 4px 12px rgba(23, 43, 69, 0.03);
+  --shadow-focus: 0 0 0 3px rgba(66, 99, 216, 0.16);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--ck-canvas);
+  color: var(--ck-ink);
+  font-family: var(--font-ar);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* ==========================================================================
+   BIDIRECTIONAL RTL/LTR ISOLATION
+   ========================================================================== */
+.ck-en {
+  font-family: var(--font-en);
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
+}
+
+.ck-bidi-chip {
+  font-family: var(--font-en);
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+}
+
+.ck-inline-term {
+  font-family: var(--font-en);
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+  background-color: var(--ck-lavender);
+  color: var(--ck-blue);
+  font-weight: 600;
+  padding: 1px 8px;
+  border-radius: 6px;
+  margin: 0 2px;
+}
+
+.ck-inline-kw {
+  font-family: var(--font-en);
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+  background-color: var(--ck-teal);
+  color: var(--ck-teal-ink);
+  font-weight: 600;
+  padding: 1px 8px;
+  border-radius: 6px;
+  margin: 0 2px;
+}
+
+/* ==========================================================================
+   THREE-ZONE SINGLE-SCREEN WORKBENCH SHELL
+   ========================================================================== */
+.ck-shell {
+  min-height: 100vh;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 272px minmax(0, 1fr) 316px;
+  gap: 20px;
+  padding: 20px;
+  align-items: start;
+}
+
+/* Mobile Header (Hidden on Desktop) */
+.ck-mobile-bar {
+  display: none;
+  background: var(--ck-surface);
+  border-bottom: 1px solid var(--ck-border);
+  padding: 12px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+/* Zone A: Navigation Rail */
+.ck-zone-a {
+  background: var(--ck-surface);
+  border: 1px solid var(--ck-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 20px 16px;
+  position: sticky;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ck-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--ck-border);
+}
+
+.ck-logo-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--ck-navy);
+  color: var(--ck-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ck-wordmark {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ck-navy);
+  line-height: 1.2;
+}
+
+.ck-descriptor {
+  font-size: 0.76rem;
+  color: var(--ck-muted);
+  margin-top: 2px;
+}
+
+.ck-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ck-nav-item {
+  width: 100%;
+  text-align: right;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  padding: 11px 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  transition: background-color 0.16s ease, border-color 0.16s ease;
+}
+
+.ck-nav-item:hover {
+  background-color: var(--ck-canvas);
+  border-color: var(--ck-border);
+}
+
+.ck-nav-item.is-active {
+  background-color: var(--ck-lavender);
+  border-color: rgba(66, 99, 216, 0.28);
+}
+
+.ck-nav-num {
+  font-family: var(--font-en);
+  font-size: 0.75rem;
+  font-weight: 700;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--ck-canvas);
+  border: 1px solid var(--ck-border);
+  color: var(--ck-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.ck-nav-item.is-active .ck-nav-num {
+  background: var(--ck-blue);
+  border-color: var(--ck-blue);
+  color: #FFFFFF;
+}
+
+.ck-nav-item.is-done .ck-nav-num {
+  background: var(--ck-teal);
+  border-color: rgba(15, 92, 77, 0.25);
+  color: var(--ck-teal-ink);
+}
+
+.ck-nav-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ck-ink);
+  line-height: 1.35;
+}
+
+.ck-nav-sub {
+  font-size: 0.74rem;
+  color: var(--ck-muted);
+  margin-top: 2px;
+}
+
+.ck-rail-footer {
+  border-top: 1px solid var(--ck-border);
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Zone B: Main Learning Workspace */
+.ck-zone-b {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.ck-top-context-bar {
+  background: var(--ck-surface);
+  border: 1px solid var(--ck-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 14px 18px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ck-stage-surface {
+  background: var(--ck-surface);
+  border: 1px solid var(--ck-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 26px;
+  min-height: 540px;
+}
+
+/* Zone C: Context & Intelligence Panel */
+.ck-zone-c {
+  background: var(--ck-surface);
+  border: 1px solid var(--ck-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 20px 18px;
+  position: sticky;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ==========================================================================
+   COMMON UI CONTROLS & TOKENS
+   ========================================================================== */
+.ck-section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ck-muted);
+  letter-spacing: 0.02em;
+}
+
+.ck-pill-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ck-pill {
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--ck-border);
+  background: var(--ck-canvas);
+  color: var(--ck-ink);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ck-pill:hover {
+  border-color: var(--ck-border-strong);
+  background: #EFF2F6;
+}
+
+.ck-pill.is-selected {
+  background: var(--ck-navy);
+  border-color: var(--ck-navy);
+  color: #FFFFFF;
+}
+
+.ck-btn-primary {
+  background: var(--ck-blue);
+  color: #FFFFFF;
+  border: 1px solid var(--ck-blue);
+  border-radius: var(--radius-sm);
+  padding: 9px 16px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.15s ease;
+}
+
+.ck-btn-primary:hover {
+  background: var(--ck-blue-hover);
+}
+
+.ck-btn-secondary {
+  background: var(--ck-surface);
+  color: var(--ck-ink);
+  border: 1px solid var(--ck-border-strong);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.ck-btn-secondary:hover {
+  background: var(--ck-canvas);
+  border-color: var(--ck-muted);
+}
+
+.ck-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.ck-badge-navy { background: #EDF1F7; color: var(--ck-navy); }
+.ck-badge-blue { background: var(--ck-lavender); color: var(--ck-blue); }
+.ck-badge-teal { background: var(--ck-teal); color: var(--ck-teal-ink); }
+.ck-badge-amber { background: var(--ck-amber); color: var(--ck-amber-ink); }
+.ck-badge-rose { background: var(--ck-rose-bg); color: var(--ck-rose-ink); }
+
+/* ==========================================================================
+   STAGE 01: LANGUAGE FADING SLIDER, EXAM X-RAY & 3-CONTEXT COMPARISON
+   ========================================================================== */
+.ck-fading-box {
+  background: var(--ck-canvas);
+  border: 1px solid var(--ck-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+
+.ck-slider-track {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--ck-surface);
+  border: 1px solid var(--ck-border);
+  border-radius: 10px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.ck-slider-stop {
+  border: none;
+  background: transparent;
+  border-radius: 7px;
+  padding: 9px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ck-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.18s ease;
+}
+
+.ck-slider-stop:hover {
+  color: var(--ck-ink);
+}
+
+.ck-slider-stop.is-active {
+  background: var(--ck-navy);
+  color: #FFFFFF;
+}
+
+.ck-range-input {
+  width: 100%;
+  accent-color: var(--ck-blue);
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* X-Ray Tokens */
+.ck-xray-surface {
+  background: var(--ck-surface);
+  border: 1px solid var(--ck-border);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  line-height: 2;
+  font-size: 1.06rem;
+}
+
+.ck-tok {
+  display: inline;
+  padding: 2px 5px;
+  border-radius: 5px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: opacity 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.ck-xray-on .ck-tok-filler {
+  opacity: 0.28;
+}
+
+.ck-xray-on .ck-tok-verb {
+  background-color: var(--ck-lavender);
+  color: #3047A6;
+  border-bottom-color: var(--ck-blue);
+  font-weight: 600;
+}
+
+.ck-xray-on .ck-tok-clue {
+  background-color: var(--ck-teal);
+  color: var(--ck-teal-ink);
+  border-bottom-color: #169B7F;
+  font-weight: 600;
+}
+
+.ck-xray-on .ck-tok-trap {
+  background-color: var(--ck-amber);
+  color: var(--ck-amber-ink);
+  border-bottom: 2px dashed #C78A1F;
+  font-weight: 600;
+}
+
+.ck-tok.is-inspected {
+  outline: 2px solid var(--ck-navy);
+  outline-offset: 1px;
+}
+
+.ck-context-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.ck-context-col {
+  border: 1px solid var(--ck-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  background: var(--ck-surface);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ck-context-col.col-everyday { border-top: 3px solid #D99B26; }
+.ck-context-col.col-major { border-top: 3px solid var(--ck-blue); }
+.ck-context-col.col-exam { border-top: 3px solid #169B7F; }
+
+/* ==========================================================================
+   STAGE 02: THREE-DISGUISE GAUNTLET
+   ========================================================================== */
+.ck-round-stepper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.ck-round-tab {
+  border: 1px solid var(--ck-border);
+  background: var(--ck-canvas);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  text-align: right;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.ck-round-tab.is-active {
+  background: var(--ck-surface);
+  border-color: var(--ck-blue);
+  box-shadow: var(--shadow-focus);
+}
+
+.ck-round-tab.is-passed {
+  border-color: rgba(15, 92, 77, 0.35);
+  background: #F4FBF9;
+}
+
+.ck-option-btn {
+  width: 100%;
+  text-align: left;
+  background: var(--ck-surface);
+  border: 1px solid var(--ck-border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.ck-option-btn:hover {
+  border-color: var(--ck-blue);
+  background: #FAFBFF;
+}
+
+.ck-option-btn.is-correct {
+  border-color: #169B7F;
+  background: #F1FAF7;
+}
+
+.ck-option-btn.is-wrong {
+  border-color: #C7384F;
+  background: var(--ck-rose-bg);
+}
+
+.ck-option-letter {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: var(--ck-canvas);
+  border: 1px solid var(--ck-border);
+  font-family: var(--font-en);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ck-navy);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   STAGE 03: EXPLAIN-TO-PASS RUBRIC & GUIDED SCAFFOLD
+   ========================================================================== */
+.ck-textarea {
+  width: 100%;
+  border: 1.5px solid var(--ck-border-strong);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  font-size: 0.96rem;
+  line-height: 1.7;
+  color: var(--ck-ink);
+  background: var(--ck-surface);
+  resize: vertical;
+  min-height: 104px;
+  transition: border-color 0.15s ease;
+}
+
+.ck-textarea:focus {
+  outline: none;
+  border-color: var(--ck-blue);
+  box-shadow: var(--shadow-focus);
+}
+
+.ck-rubric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.ck-rubric-card {
+  border: 1px solid var(--ck-border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  background: var(--ck-surface);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ck-rubric-card.status-demonstrated {
+  border-color: rgba(15, 92, 77, 0.35);
+  background: #F5FBF9;
+}
+
+.ck-rubric-card.status-partial {
+  border-color: rgba(180, 120, 20, 0.35);
+  background: #FEFBF3;
+}
+
+.ck-rubric-card.status-trap {
+  border-color: rgba(163, 34, 55, 0.35);
+  background: var(--ck-rose-bg);
+}
+
+.ck-kw-chip {
+  font-family: var(--font-en);
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--ck-border-strong);
+  background: var(--ck-surface);
+  color: var(--ck-navy);
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.ck-kw-chip:hover {
+  border-color: var(--ck-blue);
+  background: var(--ck-lavender);
+}
+
+.ck-kw-chip.is-matched {
+  background: var(--ck-teal);
+  border-color: rgba(15, 92, 77, 0.3);
+  color: var(--ck-teal-ink);
+}
+
+/* Subtle Reveal Transition */
+@keyframes ckFade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ck-animate {
+  animation: ckFade 0.2s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   MODAL & RESPONSIVE ADAPTATIONS (Tablet & Mobile)
+   ========================================================================== */
+.ck-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(23, 43, 69, 0.45);
+  backdrop-filter: blur(3px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.ck-modal-backdrop.is-hidden {
+  display: none;
+}
+
+.ck-modal-dialog {
+  background: var(--ck-surface);
+  border: 1px solid var(--ck-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 50px rgba(23, 43, 69, 0.18);
+  max-width: 680px;
+  width: 100%;
+  padding: 24px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.ck-mobile-panel-toggle {
+  display: none;
+}
+
+@media (max-width: 1180px) {
+  .ck-shell {
+    grid-template-columns: 240px minmax(0, 1fr);
+    padding: 16px;
+    gap: 16px;
+  }
+  .ck-zone-c {
+    grid-column: 1 / -1;
+    position: static;
+  }
+  .ck-mobile-panel-toggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 860px) {
+  .ck-mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .ck-shell {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 12px;
+    gap: 12px;
+  }
+  .ck-zone-a {
+    position: static;
+    padding: 12px;
+    gap: 12px;
+  }
+  .ck-brand, .ck-rail-footer {
+    display: none;
+  }
+  .ck-nav-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .ck-nav-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 8px 6px;
+    gap: 4px;
+  }
+  .ck-nav-sub {
+    display: none;
+  }
+  .ck-stage-surface {
+    padding: 16px;
+    min-height: auto;
+  }
+  .ck-context-grid,
+  .ck-round-stepper,
+  .ck-rubric-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ck-slider-stop {
+    font-size: 0.72rem;
+    padding: 8px 4px;
+  }
+}

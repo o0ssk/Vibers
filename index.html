@@ -3,143 +3,192 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مِفتاح السياق | رفيق الطالب لفهم مصطلحات التخصص وأسئلة الاختبارات</title>
+  <title>ContextKey | مِفتاح السياق — التعلّم السياقي وفهم أسئلة الاختبارات</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/contextkey.css" />
 </head>
-<body class="min-h-screen pb-16">
+<body>
 
-  <!-- ================================================================== -->
-  <!-- CLEAN ACADEMIC HEADER                                              -->
-  <!-- ================================================================== -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
-    <div class="max-w-5xl mx-auto px-5 py-3.5 flex flex-wrap items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">
-          م
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <h1 class="text-lg md:text-xl font-bold text-slate-900">مِفتاح السياق</h1>
-            <span class="text-xs px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-bold border border-blue-200">
-              تعلّم أذكى · T2
-            </span>
-          </div>
-          <p class="text-xs text-slate-500">
-            أضف مصطلحاتك أو ارفع سلايداتك وأسئلتك السابقة — افهم معناها في كل سياق وتدرّب عليها
-          </p>
-        </div>
+  <!-- Mobile Sticky Header (Visible on <860px) -->
+  <header class="ck-mobile-bar">
+    <div class="flex items-center gap-2.5">
+      <div class="ck-logo-mark" style="width: 32px; height: 32px; border-radius: 8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+        </svg>
       </div>
-
-      <div class="flex items-center gap-3 text-xs font-bold">
-        <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700">
-          مصطلحاتي: <strong id="count-terms" class="text-blue-600">0</strong>
-        </span>
-        <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700">
-          أسئلتي: <strong id="count-questions" class="text-emerald-600">0</strong>
-        </span>
-        <button id="clear-workspace-btn" onclick="clearAllWorkspace()" class="hidden px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 transition">
-          مسح الكل
-        </button>
+      <div>
+        <div class="font-bold text-sm text-[#172B45]">ContextKey · مِفتاح السياق</div>
       </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button type="button" onclick="openRetryQueue()" class="ck-badge ck-badge-amber cursor-pointer border border-[#E5CFA0]">
+        <span>قائمة الإعادة:</span>
+        <strong id="mobile-retry-count">0</strong>
+      </button>
+      <button type="button" onclick="resetDemoState()" class="ck-btn-secondary py-1.5 px-2.5 text-xs">
+        إعادة ضبط
+      </button>
     </div>
   </header>
 
   <!-- ================================================================== -->
-  <!-- MAIN CONTAINER                                                     -->
+  <!-- THREE-ZONE SINGLE-SCREEN WORKBENCH                                 -->
   <!-- ================================================================== -->
-  <main class="max-w-5xl mx-auto px-5 mt-6 space-y-6">
+  <div class="ck-shell">
 
-    <!-- 1. USER INPUT HUB (Add from your own terms, slides, or past questions) -->
-    <section class="study-card p-5 md:p-6 space-y-4">
-      <div class="flex flex-wrap items-center justify-between gap-2">
-        <div>
-          <h2 class="text-base md:text-lg font-bold text-slate-900">أضف مادتك ومصطلحاتك من عندك</h2>
-          <p class="text-xs text-slate-500">اكتب الكلمات الإنجليزية التي استصعبتها، أو ارفع ملف السلايدات، أو الصق سؤال اختبار سابق</p>
+    <!-- ================================================================ -->
+    <!-- ZONE A: NAVIGATION & LEARNING PROGRESS                           -->
+    <!-- ================================================================ -->
+    <aside class="ck-zone-a" aria-label="التنقل ومراحل التعلم">
+      
+      <!-- Logo & Wordmark -->
+      <div class="ck-brand">
+        <div class="ck-logo-mark">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+          </svg>
         </div>
-        <div id="loading-indicator" class="hidden text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg"></div>
+        <div>
+          <div class="ck-wordmark">مِفتاح السياق <span class="ck-bidi-chip text-xs text-[#4263D8] font-semibold">ContextKey</span></div>
+          <div class="ck-descriptor">إتقان المصطلحات وفك شفرة الاختبارات</div>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        
-        <!-- Input 1: Type Custom Terms -->
-        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-3">
-          <div class="space-y-2">
-            <div class="text-xs font-bold text-blue-700">✍️ 1. اكتب مصطلحًا أو عدة مصطلحات</div>
-            <input id="user-term-input" type="text" placeholder="اكتب أي مصطلح إنجليزي هنا..."
-              onkeydown="if(event.key==='Enter') handleAddUserTerms()"
-              class="w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-sm en-text focus:outline-none focus:border-blue-500" />
-            <input id="user-hint-input" type="text" placeholder="ملاحظتك بالعربي عنه (اختياري)"
-              onkeydown="if(event.key==='Enter') handleAddUserTerms()"
-              class="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs focus:outline-none focus:border-blue-500" />
-          </div>
-          <button onclick="handleAddUserTerms()" class="w-full py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition">
-            + حلّل المصطلح وأضفه لدفتري
-          </button>
+      <!-- 3 Numbered Learning Stages -->
+      <div>
+        <div class="ck-section-label mb-2.5">مسار الإتقان المترابط</div>
+        <nav id="zone-a-nav" class="ck-nav-list"></nav>
+      </div>
+
+      <!-- Retry Queue & Demo Reset Controls -->
+      <div class="ck-rail-footer">
+        <button type="button" onclick="openRetryQueue()" id="rail-retry-btn" class="ck-btn-secondary w-full justify-between">
+          <span class="flex items-center gap-2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+            </svg>
+            <span>قائمة الإعادة</span>
+          </span>
+          <span id="rail-retry-count" class="ck-badge ck-badge-amber">0</span>
+        </button>
+
+        <button type="button" onclick="toggleIngestionModal()" class="ck-btn-secondary w-full justify-start">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <span>رفع سلايد أو إضافة مصطلح</span>
+        </button>
+
+        <button type="button" onclick="resetDemoState()" class="ck-btn-secondary w-full justify-start text-[#748094]">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
+          </svg>
+          <span>إعادة ضبط العرض (90s)</span>
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- ================================================================ -->
+    <!-- ZONE B: MAIN LEARNING WORKSPACE                                  -->
+    <!-- ================================================================ -->
+    <main class="ck-zone-b">
+      
+      <!-- Course Pack & Active Concept Selector Bar -->
+      <section class="ck-top-context-bar" aria-label="اختيار المقرر والمفهوم">
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="ck-section-label">المقرر:</span>
+          <div id="course-pack-pills" class="ck-pill-group"></div>
         </div>
 
-        <!-- Input 2: Upload Slides / Past Exam File -->
-        <div class="p-4 rounded-xl bg-slate-50 border border-dashed border-slate-300 flex flex-col justify-between space-y-3">
-          <div class="space-y-1.5">
-            <div class="text-xs font-bold text-emerald-700">📄 2. ارفع ملف السلايدات أو الأسئلة</div>
-            <p class="text-xs text-slate-500 leading-relaxed">
-              ارفع ملف المحاضرة أو أسئلة سابقة (PDF أو TXT) ليقوم النظام باستخراج المصطلحات والأسئلة تلقائيًا.
-            </p>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="ck-section-label">المفهوم:</span>
+          <div id="concept-pills" class="ck-pill-group"></div>
+          <button type="button" onclick="toggleIngestionModal()" class="ck-pill text-[#4263D8] border-[#4263D8]/30 bg-[#EEF0FF]/60 md:hidden">
+            + إضافة / رفع
+          </button>
+        </div>
+      </section>
+
+      <!-- Active Stage Viewport -->
+      <section id="zone-b-workspace" class="ck-stage-surface" aria-live="polite"></section>
+
+    </main>
+
+    <!-- ================================================================ -->
+    <!-- ZONE C: CONTEXT & INTELLIGENCE PANEL                             -->
+    <!-- ================================================================ -->
+    <aside class="ck-zone-c" aria-label="لوحة السياق والتقدم">
+      <div class="flex items-center justify-between border-b border-[#E6EAF0] pb-3">
+        <span class="text-sm font-bold text-[#172B45]">لوحة السياق والتقدم</span>
+        <button type="button" onclick="toggleMobileIntelPanel()" class="ck-mobile-panel-toggle ck-btn-secondary py-1 px-2.5 text-xs">
+          طي / عرض
+        </button>
+      </div>
+      <div id="zone-c-content" class="space-y-4"></div>
+    </aside>
+
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- MATERIAL UPLOAD & CUSTOM CONCEPT MODAL                             -->
+  <!-- ================================================================== -->
+  <div id="ck-ingestion-modal" class="ck-modal-backdrop is-hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="ck-modal-dialog space-y-5">
+      <div class="flex items-center justify-between border-b border-[#E6EAF0] pb-3.5">
+        <div>
+          <div class="ck-section-label text-[#4263D8]">إدخال محتوى مخصص (معالجة محلية في المتصفح)</div>
+          <h2 id="modal-title" class="text-lg font-bold text-[#172B45] mt-0.5">إضافة مصطلح أو رفع ملف سلايدات / أسئلة سابقة</h2>
+        </div>
+        <button type="button" onclick="toggleIngestionModal()" class="ck-btn-secondary py-1.5 px-3 text-xs">إغلاق</button>
+      </div>
+
+      <!-- Option 1: Upload File (TXT / MD / JSON / Text-based PDF) -->
+      <div class="p-4 rounded-xl bg-[#F7F8FA] border border-[#E6EAF0] space-y-2.5">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div class="text-sm font-bold text-[#172B45]">1. استخراج من ملف محاضرة أو اختبار سابق</div>
+            <p class="text-xs text-[#748094] mt-0.5">يفحص النص لمطابقة مصطلحات المقرر المدمجة واستخراج أسئلة الاختبار لأشعة X-Ray.</p>
           </div>
-          <label class="cursor-pointer w-full py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold text-center block transition">
-            ⬆️ اختر ملفًا من جهازك (PDF / TXT)
-            <input type="file" accept=".pdf,.txt,.md" class="hidden" onchange="handleUserFileUpload(event)" />
+          <label class="ck-btn-primary cursor-pointer text-xs">
+            اختيار ملف (.txt / .md / .pdf)
+            <input type="file" accept=".txt,.md,.json,.pdf" class="hidden" onchange="handleMaterialUpload(event)" />
           </label>
         </div>
+        <div id="upload-status-msg" class="hidden text-xs font-medium p-2.5 rounded-lg bg-[#EEF0FF] text-[#172B45]"></div>
+      </div>
 
-        <!-- Input 3: Paste Exam Question -->
-        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-3">
-          <div class="space-y-1.5">
-            <div class="text-xs font-bold text-purple-700">🔍 3. الصق سؤال اختبار سابق</div>
-            <textarea id="user-question-input" rows="3" placeholder="الصق أي سؤال إنجليزي تريد فهمه وتبسيطه..."
-              class="w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-xs en-text focus:outline-none focus:border-purple-500"></textarea>
+      <!-- Option 2: Custom Term or Exam Question -->
+      <div class="p-4 rounded-xl bg-[#F7F8FA] border border-[#E6EAF0] space-y-3">
+        <div class="text-sm font-bold text-[#172B45]">2. إضافة مصطلح مخصص أو لصق سؤال اختبار مباشر</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-[#748094] mb-1">المصطلح بالإنجليزية</label>
+            <input id="inp-custom-term" type="text" placeholder="e.g., Protocol" class="w-full px-3 py-2 rounded-lg border border-[#CFD6E1] bg-white text-sm ck-en" />
           </div>
-          <button onclick="handleAddUserQuestion()" class="w-full py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition">
-            ⚡ ترجم السؤال وبسّط كلماته
+          <div>
+            <label class="block text-xs font-semibold text-[#748094] mb-1">المعنى التخصصي بالعربية (اختياري)</label>
+            <input id="inp-custom-ar" type="text" placeholder="مجموعة قواعد تنظم تبادل البيانات" class="w-full px-3 py-2 rounded-lg border border-[#CFD6E1] bg-white text-sm" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-[#748094] mb-1">سؤال اختبار إنجليزي لتطبيق أشعة X-Ray عليه (اختياري)</label>
+          <textarea id="inp-custom-question" rows="2" placeholder="Paste an English exam question to run deterministic X-Ray classification..." class="w-full px-3 py-2 rounded-lg border border-[#CFD6E1] bg-white text-sm ck-en"></textarea>
+        </div>
+        <div class="flex justify-end gap-2 pt-1">
+          <button type="button" onclick="submitCustomMaterial()" class="ck-btn-primary">
+            إضافة المفهوم وبدء التدريب
           </button>
         </div>
-
       </div>
+    </div>
+  </div>
 
-      <!-- User's Added Terms Strip -->
-      <div class="pt-3 border-t border-slate-100">
-        <div class="text-xs font-bold text-slate-400 mb-2">مصطلحاتك المضافة:</div>
-        <div id="my-terms-strip" class="flex flex-wrap items-center gap-2"></div>
-      </div>
-    </section>
-
-    <!-- 2. SIMPLE 4-STEP STUDY TABS -->
-    <nav class="study-card p-2 flex flex-wrap items-center gap-2">
-      <button onclick="switchTab('contexts')" id="tab-contexts" class="nav-tab active flex-1 justify-center">
-        <span class="nav-step-badge">1</span>
-        <span>الشرح وتعدد السياقات</span>
-      </button>
-      <button onclick="switchTab('flashcards')" id="tab-flashcards" class="nav-tab flex-1 justify-center">
-        <span class="nav-step-badge">2</span>
-        <span>بطاقات الفلاش كارد</span>
-      </button>
-      <button onclick="switchTab('questions')" id="tab-questions" class="nav-tab flex-1 justify-center">
-        <span class="nav-step-badge">3</span>
-        <span>تبسيط الأسئلة السابقة</span>
-      </button>
-      <button onclick="switchTab('quiz')" id="tab-quiz" class="nav-tab flex-1 justify-center">
-        <span class="nav-step-badge">4</span>
-        <span>اختبر فهمك واشرح بطريقتك</span>
-      </button>
-    </nav>
-
-    <!-- 3. DYNAMIC STUDY WORKSPACE -->
-    <section id="workspace-view"></section>
-
-  </main>
-
-  <script src="js/analyzer.js"></script>
+  <!-- Core Deterministic Data & NLP Engines + Application Controller -->
+  <script src="js/data-ontology.js"></script>
+  <script src="js/nlp-engine.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

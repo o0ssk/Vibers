@@ -225,9 +225,9 @@ window.VCC_ONTOLOGY = {
                 text: 'هو إخفاء وحماية بيانات الكلاس ومنع تعديلها بشكل مباشر من الخارج'
               },
               {
-                label: '2. مسودة إنجليزية ناقصة التوأم (67%)',
-                sub: 'ذكر private و data hiding ونسي الفرق عن Abstraction',
-                text: 'Encapsulation achieves data hiding by making variables private and using public setters.'
+                label: '02 — خلط مع التوأم (Twin-Term Confusion)',
+                sub: 'وصف التجريد (Abstraction) بدلاً من حماية البيانات (Encapsulation)',
+                text: 'Encapsulation hides implementation complexity using an abstract interface'
               },
               {
                 label: '3. إجابة الدرجة الكاملة (100%)',
