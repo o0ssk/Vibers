@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مِفتاح السياق | رفيق الطالب لفهم مصطلحات التخصص وأسئلة الاختبارات</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="min-h-screen pb-16">
+
+  <!-- ================================================================== -->
+  <!-- CLEAN ACADEMIC HEADER                                              -->
+  <!-- ================================================================== -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <div class="max-w-5xl mx-auto px-5 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+          م
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg md:text-xl font-bold text-slate-900">مِفتاح السياق</h1>
+            <span class="text-xs px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-bold border border-blue-200">
+              تعلّم أذكى · T2
+            </span>
+          </div>
+          <p class="text-xs text-slate-500">
+            أضف مصطلحاتك أو ارفع سلايداتك وأسئلتك السابقة — افهم معناها في كل سياق وتدرّب عليها
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3 text-xs font-bold">
+        <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700">
+          مصطلحاتي: <strong id="count-terms" class="text-blue-600">0</strong>
+        </span>
+        <span class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700">
+          أسئلتي: <strong id="count-questions" class="text-emerald-600">0</strong>
+        </span>
+        <button id="clear-workspace-btn" onclick="clearAllWorkspace()" class="hidden px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 transition">
+          مسح الكل
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================================================================== -->
+  <!-- MAIN CONTAINER                                                     -->
+  <!-- ================================================================== -->
+  <main class="max-w-5xl mx-auto px-5 mt-6 space-y-6">
+
+    <!-- 1. USER INPUT HUB (Add from your own terms, slides, or past questions) -->
+    <section class="study-card p-5 md:p-6 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <h2 class="text-base md:text-lg font-bold text-slate-900">أضف مادتك ومصطلحاتك من عندك</h2>
+          <p class="text-xs text-slate-500">اكتب الكلمات الإنجليزية التي استصعبتها، أو ارفع ملف السلايدات، أو الصق سؤال اختبار سابق</p>
+        </div>
+        <div id="loading-indicator" class="hidden text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <!-- Input 1: Type Custom Terms -->
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-3">
+          <div class="space-y-2">
+            <div class="text-xs font-bold text-blue-700">✍️ 1. اكتب مصطلحًا أو عدة مصطلحات</div>
+            <input id="user-term-input" type="text" placeholder="اكتب أي مصطلح إنجليزي هنا..."
+              onkeydown="if(event.key==='Enter') handleAddUserTerms()"
+              class="w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-sm en-text focus:outline-none focus:border-blue-500" />
+            <input id="user-hint-input" type="text" placeholder="ملاحظتك بالعربي عنه (اختياري)"
+              onkeydown="if(event.key==='Enter') handleAddUserTerms()"
+              class="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs focus:outline-none focus:border-blue-500" />
+          </div>
+          <button onclick="handleAddUserTerms()" class="w-full py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition">
+            + حلّل المصطلح وأضفه لدفتري
+          </button>
+        </div>
+
+        <!-- Input 2: Upload Slides / Past Exam File -->
+        <div class="p-4 rounded-xl bg-slate-50 border border-dashed border-slate-300 flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="text-xs font-bold text-emerald-700">📄 2. ارفع ملف السلايدات أو الأسئلة</div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              ارفع ملف المحاضرة أو أسئلة سابقة (PDF أو TXT) ليقوم النظام باستخراج المصطلحات والأسئلة تلقائيًا.
+            </p>
+          </div>
+          <label class="cursor-pointer w-full py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold text-center block transition">
+            ⬆️ اختر ملفًا من جهازك (PDF / TXT)
+            <input type="file" accept=".pdf,.txt,.md" class="hidden" onchange="handleUserFileUpload(event)" />
+          </label>
+        </div>
+
+        <!-- Input 3: Paste Exam Question -->
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="text-xs font-bold text-purple-700">🔍 3. الصق سؤال اختبار سابق</div>
+            <textarea id="user-question-input" rows="3" placeholder="الصق أي سؤال إنجليزي تريد فهمه وتبسيطه..."
+              class="w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-xs en-text focus:outline-none focus:border-purple-500"></textarea>
+          </div>
+          <button onclick="handleAddUserQuestion()" class="w-full py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition">
+            ⚡ ترجم السؤال وبسّط كلماته
+          </button>
+        </div>
+
+      </div>
+
+      <!-- User's Added Terms Strip -->
+      <div class="pt-3 border-t border-slate-100">
+        <div class="text-xs font-bold text-slate-400 mb-2">مصطلحاتك المضافة:</div>
+        <div id="my-terms-strip" class="flex flex-wrap items-center gap-2"></div>
+      </div>
+    </section>
+
+    <!-- 2. SIMPLE 4-STEP STUDY TABS -->
+    <nav class="study-card p-2 flex flex-wrap items-center gap-2">
+      <button onclick="switchTab('contexts')" id="tab-contexts" class="nav-tab active flex-1 justify-center">
+        <span class="nav-step-badge">1</span>
+        <span>الشرح وتعدد السياقات</span>
+      </button>
+      <button onclick="switchTab('flashcards')" id="tab-flashcards" class="nav-tab flex-1 justify-center">
+        <span class="nav-step-badge">2</span>
+        <span>بطاقات الفلاش كارد</span>
+      </button>
+      <button onclick="switchTab('questions')" id="tab-questions" class="nav-tab flex-1 justify-center">
+        <span class="nav-step-badge">3</span>
+        <span>تبسيط الأسئلة السابقة</span>
+      </button>
+      <button onclick="switchTab('quiz')" id="tab-quiz" class="nav-tab flex-1 justify-center">
+        <span class="nav-step-badge">4</span>
+        <span>اختبر فهمك واشرح بطريقتك</span>
+      </button>
+    </nav>
+
+    <!-- 3. DYNAMIC STUDY WORKSPACE -->
+    <section id="workspace-view"></section>
+
+  </main>
+
+  <script src="js/analyzer.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
